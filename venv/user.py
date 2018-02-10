@@ -24,3 +24,13 @@ class User:
         #
         # return watched_movies_list
         return list(filter(lambda movie: movie.watched, self.movies))
+
+    def save_to_file(self):
+        with open("{}.txt".format(self.name), 'w') as f:
+            f.write(self.name + "\n")
+            for movie in self.movies:
+                f.write("{},{},{}\n".format(movie.name, movie.genre, str(movie.watched)))
+
+    def load_from_file(self, filename):
+        with open(filename, 'r') as f:
+            username = f.readline()
