@@ -28,6 +28,32 @@ class User:
                 # Kirjoitetaan tiedostoon jokaisella iteraatiolla palautettu sisältö ja newline.
                 f.write("{},{},{}\n".format(movie.name, movie.genre, str(movie.watched)))
 
-    def load_from_file(self, filename): #
-        with open(filename, 'r') as f:
-            username = f.readline()
+    # Määrittely ilman classmethodia (load from cls file-luvun lopussa):
+    # def load_from_file(self, filename):
+    #     with open(filename, 'r') as f:  # Avaa parametrina annettu tiedosto
+    #         content = f.readlines()     # Lue kaikki tiedoston rivit muutujaan
+    #         username = content[0]       # Ensimmäinen rivi sisältää käyttäjänimen
+    #         movies = []                 # Luo tyhjä lista, johon lisätään käyttäjän elokuvat
+    #         for line in content[1:]:    # iteroidaan tiedoston sisältö 2. rivistä alkaen
+    #             movie_data = line.split(",") # pilkotaan rivit listoiksi --> [ 'name', 'genre', 'watched' ]
+    #             # Lisätään rivit movies-muuttujaan (watched-elementti listätään vain jos sisältö on True)
+    #             movies.append(Movie(movie_data[0], movie_data[1], movie_data[2] == "True"))
+    #
+    #         user = User(username)       # Tallenna objekti muuttujaan käyttäen User class-rakennetta
+    #         user.movies = movies        # Tallenna movies-muuttujan sisältö objektin movies-listaan (User class: self.movies)
+    #         return user                 # Palauta user-objekti
+
+    @classmethod
+    def load_from_file(cls, filename):  # cls --> class, viittaa User classiin
+        with open(filename, 'r') as f:  # Avaa parametrina annettu tiedosto
+            content = f.readlines()     # Lue kaikki tiedoston rivit muutujaan
+            username = content[0]       # Ensimmäinen rivi sisältää käyttäjänimen
+            movies = []                 # Luo tyhjä lista, johon lisätään käyttäjän elokuvat
+            for line in content[1:]:    # iteroidaan tiedoston sisältö 2. rivistä alkaen
+                movie_data = line.split(",") # pilkotaan rivit listoiksi --> [ 'name', 'genre', 'watched' ]
+                # Lisätään rivit movies-muuttujaan (watched-elementti listätään vain jos sisältö on True)
+                movies.append(Movie(movie_data[0], movie_data[1], movie_data[2] == "True"))
+
+            user = cls(username)        # HUOM! cls-määrittely! Tallenna objekti muuttujaan käyttäen User class-rakennetta
+            user.movies = movies        # Tallenna movies-muuttujan sisältö objektin movies-listaan (User class: self.movies)
+            return user                 # Palauta user-objekti
