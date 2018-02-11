@@ -26,3 +26,12 @@ class User:
             'movies': [ movie.json() for movie in self.movies ] # b) dictionaryn, joka luodaan iteroimalla self.movies
         }                                                       # jokainen self.moviesin sisältämä list tallennetaan
                                                                 # movie.json-rakenteeseen
+    @classmethod
+    def from_json(cls, json_data):
+        user = User(json_data['name'])
+        movies = []
+        for movie_data in json_data['movies']:
+            movies.append(Movie.from_json(movie_data))
+        user.movies = movies
+
+        return user

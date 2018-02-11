@@ -19,11 +19,7 @@
 from user import User
 import json
 
-user = User("Miikka")                       # Tallennus muuttujaan tehtävä, että classin sisältämiä methodeja voidaan
-user.add_movie("The Matrix", "Sci-Fi")      # kutsua.
-user.add_movie("The Interview", "Comedy")
-with open('my_file.txt', 'w') as f:
-    json.dump(user.json(), f)               # User clasin sisältämä json-funktio palauttaa dictionaryn, joka tallennetaan
-                                            # json-tiedostoon
-print(user.movies)
-
+with open('my_file.txt', 'r') as f:
+    json_data = json.load(f)
+    user = User.from_json(json_data)
+    print(user.json())
