@@ -5,7 +5,7 @@ class Movie:
         self.watched = watched
 
     def __repr__(self):
-        return "{}".format(self.nagit me)
+        return "{}".format(self.name)
 
 
 
