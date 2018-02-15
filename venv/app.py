@@ -20,6 +20,6 @@ from user import User
 import json
 
 with open('my_file.txt', 'r') as f:
-    json_data = json.load(f)
-    user = User.from_json(json_data)
-    print(user.json())
+    json_data = json.load(f)            # json file on ladattaessa dictionary
+    user = User.from_json(json_data)    # tallennetaan user-muuttujaan from_json classmethodin palauttamat elokuvat
+    print(user.json())                  # tulostetaan elokuvat käyttäen User classin json-funktiota
